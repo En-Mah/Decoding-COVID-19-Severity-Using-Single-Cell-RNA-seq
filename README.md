@@ -44,7 +44,10 @@ Mitochondrial reads are commonly used as a quality indicator because dying or st
 
 ## Figure 1 — Relationship between n_counts and n_genes (colored by mito%)
 
-![QC Scatter](Figures/output-2.png)
+<p align="center">
+  <img src="Figures/output-2.png" width="450">
+</p>
+
 
 ### Interpretation
 
