@@ -11,7 +11,7 @@ The dataset includes four clinical groups:
 
 ---
 
-# 📊 Dataset Overview
+# Dataset Overview
 
 **Dataset:** GSE293707 (NCBI GEO)  
 **Tissue:** PBMC (Peripheral Blood Mononuclear Cells)  
@@ -633,5 +633,238 @@ This phase ensures that:
 - the evaluation is sample-aware and realistic
 
 This sets the foundation for the next phases, where multiple models are trained, tuned, and compared.
+
+---
+
+
+
+
+
+
+
+
+---
+
+# 🤖 Phase 8 — Neural Network Models (MLP + Advanced NN)
+
+After preparing the ML-ready dataset in Phase 7, we trained neural network models to predict **Disease vs Healthy** using the selected gene features.  
+This phase focuses on training behavior, convergence, and evaluation using ROC curves.
+
+---
+
+## 8.1 Baseline Model: MLP (Multi-Layer Perceptron)
+
+The first deep learning model tested was a standard **MLP**.  
+This model acts as a baseline neural network classifier.
+
+### Figure 1 — MLP Training Curve
+![MLP Training Curve](Figures/output-15.png)
+
+From the training curve:
+
+- The training loss decreases rapidly in the first epochs.
+- Validation loss follows the same pattern.
+- Both curves stabilize smoothly.
+- No strong divergence is observed.
+
+This indicates:
+
+stable convergence  
+no major overfitting  
+the engineered features contain strong predictive signal
+
+---
+
+### Figure 2 — ROC Curve (MLP)
+![ROC Curve (MLP)](Figures/output-16.png)
+
+The ROC curve is close to the top-left corner, meaning:
+
+- very low false positive rate
+- very high true positive rate
+
+The MLP achieves a near-perfect AUC, showing that the dataset is highly separable.
+
+---
+
+## 8.2 Advanced Neural Network (Residual MLP)
+
+To explore whether a more powerful architecture improves performance, we implemented an **advanced neural network**, inspired by residual MLP designs.
+
+This architecture includes:
+
+- deeper layers
+- dropout regularization
+- normalization
+- residual connections
+
+---
+
+### Figure 3 — Advanced NN Training Loss
+![Advanced NN Loss](Figures/output-17.png)
+
+This figure shows:
+
+- rapid drop in training loss
+- validation loss stabilizing early (around epoch 10)
+- small generalization gap
+
+This suggests:
+
+- strong feature signal
+- faster convergence compared to standard MLP
+- stable generalization
+
+---
+
+### Figure 4 — Validation Metrics (AUC & Accuracy)
+![Validation Metrics](Figures/output-18.png)
+
+This plot tracks:
+
+- validation AUC
+- validation accuracy
+
+The results show:
+
+- AUC reaches ~1.0 very quickly
+- accuracy stabilizes near ~0.97–0.98
+
+This indicates the model learns the Healthy vs Disease boundary very efficiently.
+
+---
+
+### Figure 5 — ROC Curve (Advanced NN)
+![ROC Curve (Advanced NN)](Figures/output-19.png)
+
+The advanced model also achieves near-perfect AUC, similar to MLP.  
+This suggests that the engineered features are already highly informative and linearly separable, so deep nonlinear capacity adds only a small improvement.
+
+---
+
+# Phase 9 — TabNet Model (Attention-Based Learning)
+
+In Phase 9, we trained **TabNet**, a deep learning model designed specifically for tabular data.
+
+TabNet is useful because it:
+
+- learns attention masks
+- selects features dynamically
+- improves interpretability of feature importance
+
+---
+
+### Figure 6 — TabNet Training History
+![TabNet Training History](Figures/output-20.png)
+
+This figure shows:
+
+- training loss decreasing steadily
+- validation AUC increasing rapidly
+- AUC reaching near 1.0 early
+
+TabNet converges quickly and performs extremely well on this dataset.
+
+---
+
+### Figure 7 — ROC Curve (TabNet)
+![ROC Curve (TabNet)](Figures/output-21.png)
+
+The ROC curve again demonstrates excellent performance.
+
+However, TabNet tends to show slightly more variability across folds compared to simpler linear models, which becomes clearer in Phase 10.
+
+---
+
+# Phase 10 — Model Comparison & Stratified Performance Analysis
+
+In this phase, we compared all models trained so far:
+
+- LDA
+- Logistic Regression
+- Linear SVM
+- MLP
+- Advanced NN (Residual MLP)
+- TabNet
+
+Evaluation is performed using AUC as the main metric.
+
+---
+
+## 10.1 Overall Model Performance (AUC)
+
+### Figure 8 — Model Comparison (AUC)
+![Model Comparison AUC](Figures/output-22.png)
+
+This plot shows that:
+
+- Logistic Regression and Linear SVM achieve extremely high AUC
+- MLP and Advanced NN perform similarly
+- TabNet has slightly wider variance
+- LDA is slightly lower but still strong
+
+Main insight:
+
+classical linear models perform nearly as well as deep learning models  
+This suggests that the disease signal is strongly represented in the selected gene features.
+
+---
+
+### Figure 9 — Model Comparison (AUC, Alternative View)
+![Model Comparison AUC 2](Figures/output-23.png)
+
+This second comparison plot confirms the same trend:
+
+- all models have high median AUC
+- deep learning does not dramatically outperform linear baselines
+- variability is larger for complex models
+
+---
+
+## 10.2 Performance by Cell Type
+
+To understand which immune cell groups contribute the most to disease prediction, we computed mean AUC across major cell types.
+
+### Figure 10 — Mean AUC per Cell Type & Model
+![Mean AUC per Cell Type](Figures/output-24.png)
+
+Key findings:
+
+- **Monocytes** show the strongest signal (~0.99+)
+- **T cells** and **NK cells** are also highly predictive
+- **Dendritic cells** perform strongly
+- **B cells** and **Cycling cells** show weaker predictive signal
+
+This suggests that the immune response signature in COVID-19 is most prominent in:
+
+myeloid compartments (Monocytes / Dendritic)  
+and cytotoxic compartments (T / NK)
+
+---
+
+## 10.3 Performance by Severity Group
+
+We also evaluated performance across severity subgroups.
+
+### Figure 11 — Mean AUC per Severity & Model
+![Mean AUC per Severity](Figures/output-25.png)
+
+Results show:
+
+- Mild samples are often easiest to separate
+- Critical samples remain strongly separable
+- Severe cases show slightly lower AUC
+
+This may reflect biological heterogeneity in severe disease, where immune states can vary more widely.
+
+---
+
+Across multiple modeling approaches, the results are consistent:
+
+- Disease vs Healthy is highly predictable from gene expression features.
+- Neural networks converge quickly and achieve near-perfect AUC.
+- Classical linear models perform almost equally well.
+- Monocytes and T/NK compartments carry the strongest disease signal.
+- Predictive strength varies slightly across severity groups.
 
 ---
