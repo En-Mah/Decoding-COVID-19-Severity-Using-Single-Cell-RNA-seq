@@ -316,7 +316,7 @@ To understand whether disease changes immune composition, we calculated for each
 ## Figure 9 — Cluster composition by condition
 
 <p align="center">
-  <img src="Figures/output-9.png" width="850">
+  <img src="Figures/output-9.png" width="1550">
 </p>
 
 
@@ -365,7 +365,7 @@ For each cluster, we identified genes that are highly expressed compared to the 
 ## Figure 10 — Top marker genes for each cluster (cluster vs rest)
 
 <p align="center">
-  <img src="Figures/output-11.png" width="750">
+  <img src="Figures/output-11.png" width="1150">
 </p>
 
 
@@ -405,7 +405,7 @@ Dot plots summarize two key properties:
 ## Figure 11 — Dot plot of marker genes across clusters
 
 <p align="center">
-  <img src="Figures/output-12.png" width="1250">
+  <img src="Figures/output-12.png" width="1550">
 </p>
 
 
