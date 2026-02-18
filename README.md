@@ -112,7 +112,10 @@ The goal of PCA is to reduce the dataset from thousands of genes into a smaller 
 
 ## Figure 2 — PCA Variance Ratio (log-scale)
 
-![Variance Ratio Log](Figures/output-3.png)
+<p align="center">
+  <img src="Figures/output-3.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -128,7 +131,10 @@ This suggests most meaningful structure is captured early.
 
 ## Figure 3 — PCA Variance Ratio (linear-scale)
 
-![Variance Ratio Linear](Figures/output-4.png)
+<p align="center">
+  <img src="Figures/output-4.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -149,7 +155,10 @@ After PCA, we visualized the data in 2D using PC1 and PC2 to understand global s
 
 ## Figure 4 — PCA colored by clinical severity
 
-![PCA Severity](Figures/output-5.png)
+<p align="center">
+  <img src="Figures/output-5.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -165,7 +174,10 @@ This suggests that severity effects exist, but are subtle and mixed with cell-ty
 
 ## Figure 5 — PCA colored by GSM sample ID
 
-![PCA GSM](Figures/output-6.png)
+<p align="center">
+  <img src="Figures/output-6.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -180,7 +192,10 @@ This is important because it means later machine learning models may accidentall
 
 ## Figure 6 — PCA colored by binary condition (Healthy vs Disease)
 
-![PCA Binary](Figures/output-7.png)
+<p align="center">
+  <img src="Figures/output-7.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -233,7 +248,10 @@ Leiden clustering depends strongly on the **resolution parameter**.
 
 ## Figure 7 — Leiden clustering across multiple resolutions
 
-![Leiden Resolutions](Figures/output-8.png)
+<p align="center">
+  <img src="Figures/output-8.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -264,7 +282,10 @@ Based on this comparison, **resolution = 0.4** was selected as the final cluster
 
 ## Figure 8 — Final Leiden clustering (res = 0.4)
 
-![Final Leiden](Figures/output-10.png)
+<p align="center">
+  <img src="Figures/output-10.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -294,7 +315,10 @@ To understand whether disease changes immune composition, we calculated for each
 
 ## Figure 9 — Cluster composition by condition
 
-![Cluster Composition](Figures/output-9.png)
+<p align="center">
+  <img src="Figures/output-9.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -340,7 +364,10 @@ For each cluster, we identified genes that are highly expressed compared to the 
 
 ## Figure 10 — Top marker genes for each cluster (cluster vs rest)
 
-![Marker Ranking](Figures/output-11.png)
+<p align="center">
+  <img src="Figures/output-11.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -377,7 +404,10 @@ Dot plots summarize two key properties:
 
 ## Figure 11 — Dot plot of marker genes across clusters
 
-![Marker Dotplot](Figures/output-12.png)
+<p align="center">
+  <img src="Figures/output-12.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -404,7 +434,10 @@ To check whether clusters are transcriptionally similar, we generated a heatmap 
 
 ## Figure 12 — Cluster heatmap (global expression patterns)
 
-![Cluster Heatmap](Figures/output-13.png)
+<p align="center">
+  <img src="Figures/output-13.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -430,7 +463,10 @@ We also generated an additional marker-based cluster overview.
 
 ## Figure 13 — Marker expression overview (violin/dot-style across clusters)
 
-![Marker Overview](Figures/output-14.png)
+<p align="center">
+  <img src="Figures/output-14.png" width="450">
+</p>
+
 
 ### Interpretation
 
@@ -661,7 +697,10 @@ The first deep learning model tested was a standard **MLP**.
 This model acts as a baseline neural network classifier.
 
 ### Figure 1 — MLP Training Curve
-![MLP Training Curve](Figures/output-15.png)
+<p align="center">
+  <img src="Figures/output-15.png" width="450">
+</p>
+
 
 From the training curve:
 
@@ -679,7 +718,10 @@ the engineered features contain strong predictive signal
 ---
 
 ### Figure 2 — ROC Curve (MLP)
-![ROC Curve (MLP)](Figures/output-16.png)
+<p align="center">
+  <img src="Figures/output-16.png" width="450">
+</p>
+
 
 The ROC curve is close to the top-left corner, meaning:
 
@@ -704,7 +746,10 @@ This architecture includes:
 ---
 
 ### Figure 3 — Advanced NN Training Loss
-![Advanced NN Loss](Figures/output-17.png)
+<p align="center">
+  <img src="Figures/output-17.png" width="450">
+</p>
+
 
 This figure shows:
 
@@ -721,7 +766,10 @@ This suggests:
 ---
 
 ### Figure 4 — Validation Metrics (AUC & Accuracy)
-![Validation Metrics](Figures/output-18.png)
+<p align="center">
+  <img src="Figures/output-18.png" width="450">
+</p>
+
 
 This plot tracks:
 
@@ -738,7 +786,10 @@ This indicates the model learns the Healthy vs Disease boundary very efficiently
 ---
 
 ### Figure 5 — ROC Curve (Advanced NN)
-![ROC Curve (Advanced NN)](Figures/output-19.png)
+<p align="center">
+  <img src="Figures/output-19.png" width="450">
+</p>
+
 
 The advanced model also achieves near-perfect AUC, similar to MLP.  
 This suggests that the engineered features are already highly informative and linearly separable, so deep nonlinear capacity adds only a small improvement.
@@ -758,7 +809,10 @@ TabNet is useful because it:
 ---
 
 ### Figure 6 — TabNet Training History
-![TabNet Training History](Figures/output-20.png)
+<p align="center">
+  <img src="Figures/output-20.png" width="450">
+</p>
+
 
 This figure shows:
 
@@ -771,7 +825,10 @@ TabNet converges quickly and performs extremely well on this dataset.
 ---
 
 ### Figure 7 — ROC Curve (TabNet)
-![ROC Curve (TabNet)](Figures/output-21.png)
+<p align="center">
+  <img src="Figures/output-21.png" width="450">
+</p>
+
 
 The ROC curve again demonstrates excellent performance.
 
@@ -797,7 +854,10 @@ Evaluation is performed using AUC as the main metric.
 ## 10.1 Overall Model Performance (AUC)
 
 ### Figure 8 — Model Comparison (AUC)
-![Model Comparison AUC](Figures/output-22.png)
+<p align="center">
+  <img src="Figures/output-22.png" width="450">
+</p>
+
 
 This plot shows that:
 
@@ -814,7 +874,10 @@ This suggests that the disease signal is strongly represented in the selected ge
 ---
 
 ### Figure 9 — Model Comparison (AUC, Alternative View)
-![Model Comparison AUC 2](Figures/output-23.png)
+<p align="center">
+  <img src="Figures/output-23.png" width="450">
+</p>
+
 
 This second comparison plot confirms the same trend:
 
@@ -829,7 +892,10 @@ This second comparison plot confirms the same trend:
 To understand which immune cell groups contribute the most to disease prediction, we computed mean AUC across major cell types.
 
 ### Figure 10 — Mean AUC per Cell Type & Model
-![Mean AUC per Cell Type](Figures/output-24.png)
+<p align="center">
+  <img src="Figures/output-24.png" width="450">
+</p>
+
 
 Key findings:
 
@@ -850,7 +916,10 @@ and cytotoxic compartments (T / NK)
 We also evaluated performance across severity subgroups.
 
 ### Figure 11 — Mean AUC per Severity & Model
-![Mean AUC per Severity](Figures/output-25.png)
+<p align="center">
+  <img src="Figures/output-25.png" width="450">
+</p>
+
 
 Results show:
 
