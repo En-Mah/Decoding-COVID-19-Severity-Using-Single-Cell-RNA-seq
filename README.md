@@ -196,3 +196,263 @@ By the end of Phase 4:
 - Severity effects were visible only as subtle shifts, not as clean clusters
 
 This sets the foundation for the next stage of the pipeline: clustering and cell-type identification.
+
+
+
+
+
+
+
+---
+
+# Phase 5 — Clustering and Cluster-Level Exploration
+
+After PCA, the next step was to group cells into biologically meaningful clusters.
+
+To do this, we constructed a k-nearest-neighbor graph in PCA space and applied **Leiden clustering**.
+
+Leiden clustering is commonly used in scRNA-seq because it:
+
+- Works well on large graphs
+- Detects communities (cell populations)
+- Produces stable clusters compared to older algorithms
+
+---
+
+## 5.1 Testing different Leiden resolutions
+
+Leiden clustering depends strongly on the **resolution parameter**.
+
+- Low resolution → fewer clusters (broad populations)
+- High resolution → more clusters (finer subtypes)
+
+---
+
+## Figure 7 — Leiden clustering across multiple resolutions
+
+![Leiden Resolutions](Figures/output-8.png)
+
+### Interpretation
+
+This figure shows clustering results for:
+
+- Resolution 0.1
+- Resolution 0.2
+- Resolution 0.4
+- Resolution 0.6
+- Resolution 0.8
+
+Key observations:
+
+- At **0.1**, only a few large clusters exist (too coarse).
+- At **0.8**, many clusters appear (likely over-splitting).
+- **0.4** provides a good balance:
+  - major PBMC populations are separated
+  - clusters remain large enough for downstream analysis
+  - biological structure stays clean and interpretable
+
+Based on this comparison, **resolution = 0.4** was selected as the final clustering resolution.
+
+---
+
+## 5.2 Final clustering (resolution = 0.4)
+
+---
+
+## Figure 8 — Final Leiden clustering (res = 0.4)
+
+![Final Leiden](Figures/output-10.png)
+
+### Interpretation
+
+This plot shows the final Leiden clustering result:
+
+- 18 clusters were detected (0–17)
+- The clusters form clear groups in embedding space
+- Several clusters are large (major immune populations)
+- Several clusters are small (rare populations)
+
+This cluster structure forms the foundation for:
+
+- cell-type annotation
+- cluster composition analysis
+- downstream machine learning (cell-type specific modeling)
+
+---
+
+## 5.3 Cluster composition by condition (Healthy vs Disease)
+
+To understand whether disease changes immune composition, we calculated for each cluster:
+
+- fraction of cells coming from Disease
+- fraction of cells coming from Healthy
+
+---
+
+## Figure 9 — Cluster composition by condition
+
+![Cluster Composition](Figures/output-9.png)
+
+### Interpretation
+
+This stacked bar plot shows:
+
+- Each bar is one Leiden cluster
+- Blue = Disease
+- Orange = Healthy
+
+Important patterns:
+
+- Some clusters are almost entirely Disease (blue-dominant)
+- Some clusters are enriched for Healthy cells
+- Many clusters contain a mixture
+
+This suggests that COVID-19 affects immune composition, but not uniformly across all cell populations.
+
+It also supports the idea that severity-related transcriptional changes may be **cell-type specific**, not global.
+
+---
+
+# Phase 6 — Marker Genes and Cell-Type Annotation
+
+After clustering, we performed cluster annotation using marker genes.
+
+This is one of the most important steps in scRNA-seq analysis, because:
+
+- clusters alone are not meaningful without biological labels
+- marker genes allow us to identify known immune cell types
+
+Marker gene analysis was performed in two complementary ways:
+
+1. **Ranked marker genes per cluster**  
+2. **Dot plot of canonical immune markers across clusters**
+
+---
+
+## 6.1 Ranked marker genes per cluster
+
+For each cluster, we identified genes that are highly expressed compared to the rest of the dataset.
+
+---
+
+## Figure 10 — Top marker genes for each cluster (cluster vs rest)
+
+![Marker Ranking](Figures/output-11.png)
+
+### Interpretation
+
+Each panel shows:
+
+- one cluster compared against all other cells
+- top genes ranked by differential expression score
+
+This figure provides the first biological clues for annotation.
+
+Examples of recognizable marker patterns:
+
+- **Monocyte markers:** LST1, S100A8, S100A9, FCN1, LGALS3  
+- **T cell markers:** TRAC, IL7R, LTB  
+- **Cytotoxic/NK markers:** NKG7, GNLY, GZMB  
+- **B cell markers:** MS4A1, CD79A  
+- **Plasma markers:** MZB1, JCHAIN  
+- **Megakaryocyte markers:** PPBP  
+
+This ranking is especially useful for identifying rare clusters.
+
+---
+
+## 6.2 Dot plot of canonical marker genes across clusters
+
+To confirm cluster identity more clearly, we used a dot plot.
+
+Dot plots summarize two key properties:
+
+- **Dot size:** fraction of cells expressing the gene  
+- **Dot color:** average expression level  
+
+---
+
+## Figure 11 — Dot plot of marker genes across clusters
+
+![Marker Dotplot](Figures/output-12.png)
+
+### Interpretation
+
+This figure makes annotation more robust, because:
+
+- it confirms marker expression patterns across all clusters
+- it allows detection of mixed clusters
+- it helps validate whether clusters correspond to known PBMC populations
+
+For example:
+
+- clusters with high TRAC/IL7R are likely CD4+ T cells  
+- clusters with high NKG7/GNLY are NK or cytotoxic T cells  
+- clusters with high MS4A1/CD79A are B cells  
+- clusters with high LST1/S100A8/LYZ are monocytes  
+
+---
+
+## 6.3 Cluster similarity using heatmap
+
+To check whether clusters are transcriptionally similar, we generated a heatmap based on gene expression.
+
+---
+
+## Figure 12 — Cluster heatmap (global expression patterns)
+
+![Cluster Heatmap](Figures/output-13.png)
+
+### Interpretation
+
+This heatmap shows:
+
+- rows: genes
+- columns: clusters (ordered by hierarchical clustering)
+- similar clusters appear closer together
+
+This confirms:
+
+- clusters form groups (for example, lymphoid vs myeloid)
+- small clusters often attach to larger immune families
+- the clustering is biologically coherent
+
+---
+
+## 6.4 Cluster similarity using a second marker visualization
+
+We also generated an additional marker-based cluster overview.
+
+---
+
+## Figure 13 — Marker expression overview (violin/dot-style across clusters)
+
+![Marker Overview](Figures/output-14.png)
+
+### Interpretation
+
+This visualization reinforces:
+
+- which clusters share immune marker signatures
+- which clusters represent rare populations
+- which clusters are likely subtypes rather than major populations
+
+It also serves as a second confirmation step before assigning final cell-type labels.
+
+---
+
+By the end of Phase 6:
+
+- Leiden clustering was applied and optimized across resolutions
+- Resolution 0.4 was selected as the best trade-off
+- 18 clusters were detected
+- Cluster composition was analyzed (Healthy vs Disease)
+- Marker genes were computed per cluster
+- Canonical markers were visualized using dot plots and heatmaps
+- Clusters were prepared for final cell-type labeling
+
+These steps provide the biological foundation needed for the next phases:
+- cell-type level differential expression
+- machine learning modeling per cell type
+- severity prediction and generalization testing
+
