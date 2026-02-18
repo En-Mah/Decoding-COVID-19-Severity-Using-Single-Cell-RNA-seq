@@ -316,7 +316,7 @@ To understand whether disease changes immune composition, we calculated for each
 ## Figure 9 — Cluster composition by condition
 
 <p align="center">
-  <img src="Figures/output-9.png" width="850">
+  <img src="Figures/output-9.png" width="650">
 </p>
 
 
@@ -365,7 +365,7 @@ For each cluster, we identified genes that are highly expressed compared to the 
 ## Figure 10 — Top marker genes for each cluster (cluster vs rest)
 
 <p align="center">
-  <img src="Figures/output-11.png" width="850">
+  <img src="Figures/output-11.png" width="550">
 </p>
 
 
@@ -435,7 +435,7 @@ To check whether clusters are transcriptionally similar, we generated a heatmap 
 ## Figure 12 — Cluster heatmap (global expression patterns)
 
 <p align="center">
-  <img src="Figures/output-13.png" width="1150">
+  <img src="Figures/output-13.png" width="950">
 </p>
 
 
