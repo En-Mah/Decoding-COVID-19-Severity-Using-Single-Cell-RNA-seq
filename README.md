@@ -405,7 +405,7 @@ Dot plots summarize two key properties:
 ## Figure 11 — Dot plot of marker genes across clusters
 
 <p align="center">
-  <img src="Figures/output-12.png" width="950">
+  <img src="Figures/output-12.png" width="1250">
 </p>
 
 
@@ -464,7 +464,7 @@ We also generated an additional marker-based cluster overview.
 ## Figure 13 — Marker expression overview (violin/dot-style across clusters)
 
 <p align="center">
-  <img src="Figures/output-14.png" width="950">
+  <img src="Figures/output-14.png" width="1250">
 </p>
 
 
