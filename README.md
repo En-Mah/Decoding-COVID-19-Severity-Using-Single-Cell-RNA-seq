@@ -249,7 +249,7 @@ Leiden clustering depends strongly on the **resolution parameter**.
 ## Figure 7 — Leiden clustering across multiple resolutions
 
 <p align="center">
-  <img src="Figures/output-8.png" width="450">
+  <img src="Figures/output-8.png" width="850">
 </p>
 
 
@@ -316,7 +316,7 @@ To understand whether disease changes immune composition, we calculated for each
 ## Figure 9 — Cluster composition by condition
 
 <p align="center">
-  <img src="Figures/output-9.png" width="450">
+  <img src="Figures/output-9.png" width="850">
 </p>
 
 
@@ -365,7 +365,7 @@ For each cluster, we identified genes that are highly expressed compared to the 
 ## Figure 10 — Top marker genes for each cluster (cluster vs rest)
 
 <p align="center">
-  <img src="Figures/output-11.png" width="450">
+  <img src="Figures/output-11.png" width="750">
 </p>
 
 
@@ -405,7 +405,7 @@ Dot plots summarize two key properties:
 ## Figure 11 — Dot plot of marker genes across clusters
 
 <p align="center">
-  <img src="Figures/output-12.png" width="450">
+  <img src="Figures/output-12.png" width="950">
 </p>
 
 
@@ -435,7 +435,7 @@ To check whether clusters are transcriptionally similar, we generated a heatmap 
 ## Figure 12 — Cluster heatmap (global expression patterns)
 
 <p align="center">
-  <img src="Figures/output-13.png" width="450">
+  <img src="Figures/output-13.png" width="850">
 </p>
 
 
@@ -464,7 +464,7 @@ We also generated an additional marker-based cluster overview.
 ## Figure 13 — Marker expression overview (violin/dot-style across clusters)
 
 <p align="center">
-  <img src="Figures/output-14.png" width="450">
+  <img src="Figures/output-14.png" width="950">
 </p>
 
 
@@ -855,7 +855,7 @@ Evaluation is performed using AUC as the main metric.
 
 ### Figure 8 — Model Comparison (AUC)
 <p align="center">
-  <img src="Figures/output-22.png" width="450">
+  <img src="Figures/output-22.png" width="550">
 </p>
 
 
@@ -875,7 +875,7 @@ This suggests that the disease signal is strongly represented in the selected ge
 
 ### Figure 9 — Model Comparison (AUC, Alternative View)
 <p align="center">
-  <img src="Figures/output-23.png" width="450">
+  <img src="Figures/output-23.png" width="550">
 </p>
 
 
@@ -893,7 +893,7 @@ To understand which immune cell groups contribute the most to disease prediction
 
 ### Figure 10 — Mean AUC per Cell Type & Model
 <p align="center">
-  <img src="Figures/output-24.png" width="450">
+  <img src="Figures/output-24.png" width="550">
 </p>
 
 
@@ -917,7 +917,7 @@ We also evaluated performance across severity subgroups.
 
 ### Figure 11 — Mean AUC per Severity & Model
 <p align="center">
-  <img src="Figures/output-25.png" width="450">
+  <img src="Figures/output-25.png" width="550">
 </p>
 
 
