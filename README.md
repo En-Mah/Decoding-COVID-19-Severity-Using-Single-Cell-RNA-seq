@@ -456,3 +456,182 @@ These steps provide the biological foundation needed for the next phases:
 - machine learning modeling per cell type
 - severity prediction and generalization testing
 
+
+
+
+
+
+---
+
+# Phase 7 — Feature Engineering and Machine Learning Preparation
+
+After clustering and marker-based annotation, the next step was to prepare the dataset for supervised machine learning.
+
+The main goal of this phase was:
+
+Predict whether a cell belongs to **Healthy** or **Disease**  
+based on its gene expression profile.
+
+However, scRNA-seq data introduces several challenges that make ML non-trivial:
+
+- Extremely high dimensionality (thousands of genes)
+- Strong cell-type effects (cell identity dominates variation)
+- Batch/sample structure (each severity = one pooled sample)
+- High risk of **data leakage** if preprocessing is done incorrectly
+
+Because of these issues, Phase 7 focuses on building a careful, structured ML-ready dataset.
+
+---
+
+## 7.1 Defining the ML target labels
+
+Two label formats were created:
+
+### 1) Binary classification
+- **Healthy**
+- **Disease** (Mild + Severe + Critical)
+
+This binary setup was used for most of the models because it is:
+
+- statistically more stable
+- less sensitive to class imbalance
+- easier to evaluate under LOSO cross-validation
+
+---
+
+### 2) Severity-based grouping (optional downstream)
+Although the final models were mainly trained in binary mode,
+the dataset still contains severity metadata:
+
+- Healthy
+- Mild
+- Severe
+- Critical
+
+This makes it possible to later evaluate whether models generalize across severities.
+
+---
+
+## 7.2 Dimensionality reduction is not enough for ML
+
+Although PCA and UMAP reduce dimensionality, they are **not used as ML features** here.
+
+Why?
+
+Because PCA/UMAP embeddings are:
+
+- optimized for visualization
+- sensitive to batch structure
+- not stable across different splits
+- not biologically interpretable
+
+Instead, the models were trained directly on gene-level features.
+
+---
+
+## 7.3 Selecting informative genes (Feature Selection)
+
+Training models on all ~25,000 genes is not efficient and can lead to:
+
+- heavy overfitting
+- unstable models
+- poor generalization
+- extremely slow training
+
+So we performed feature selection.
+
+The main approach used was:
+
+### Differential Expression (DEG-based selection)
+
+For each cell type / cluster group, genes were ranked by:
+
+- differential expression between Healthy and Disease
+
+Then the top genes were selected as model input features.
+
+This is a biologically meaningful approach because:
+
+- it prioritizes genes that change under disease
+- it reduces noise
+- it produces interpretable features
+
+---
+
+## 7.4 Avoiding data leakage (critical step)
+
+In scRNA-seq ML pipelines, the most common mistake is:
+
+performing DEG selection using the full dataset  
+and then evaluating on a held-out fold
+
+This leaks information because the test fold influences the selected genes.
+
+To avoid this, the pipeline was designed so that:
+
+- DEG selection happens only on the training split
+- the selected gene list is then applied to the validation/test split
+
+This is essential to produce realistic AUC values.
+
+---
+
+## 7.5 Cross-validation strategy (LOSO)
+
+A major limitation of the dataset is that:
+
+- each severity group corresponds to a single pooled sample (one GSM)
+
+This means random train/test splits would strongly overestimate performance.
+
+So instead, the project used:
+
+### Leave-One-Sample-Out (LOSO) cross-validation
+
+In LOSO:
+
+- one GSM sample is completely held out as test
+- the model is trained on the remaining samples
+- this is repeated for all samples
+
+This is the most appropriate evaluation strategy for this dataset, because it:
+
+- tests generalization across biological samples
+- reduces sample-identity learning
+- simulates real-world deployment more realistically
+
+---
+
+## 7.6 Models prepared for training
+
+After feature selection and dataset structuring, multiple models were trained:
+
+### Classical models
+- LDA
+- Logistic Regression
+- Linear SVM
+
+### Neural models (explored later)
+- MLP
+- Advanced NN (ResMLP-style)
+- TabNet
+
+---
+
+## 7.7 Why Phase 7 matters
+
+Phase 7 is the bridge between:
+
+**single-cell analysis**
+and  
+**machine learning**
+
+This phase ensures that:
+
+- ML results are not artificially inflated
+- the gene features are biologically meaningful
+- the evaluation is sample-aware and realistic
+
+This sets the foundation for the next phases, where multiple models are trained, tuned, and compared.
+
+---
