@@ -156,7 +156,7 @@ After PCA, we visualized the data in 2D using PC1 and PC2 to understand global s
 ## Figure 4 — PCA colored by clinical severity
 
 <p align="center">
-  <img src="Figures/output-5.png" width="450">
+  <img src="Figures/output-5.png" width="850">
 </p>
 
 
