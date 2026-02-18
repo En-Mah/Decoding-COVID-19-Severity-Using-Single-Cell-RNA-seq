@@ -868,3 +868,186 @@ Across multiple modeling approaches, the results are consistent:
 - Predictive strength varies slightly across severity groups.
 
 ---
+
+
+
+
+---
+
+# Final Summary
+
+This project implemented a full single-cell RNA-seq workflow from raw quality control to clustering, marker-based annotation, and multiple machine learning models for predicting **Disease vs Healthy**.  
+The pipeline was structured into 10 phases, each contributing a key component of the final analysis.
+
+---
+
+## Results Summary Table
+
+| Phase | Goal | Main Outputs | Key Takeaway |
+|------:|------|--------------|--------------|
+| 1 | Data loading & preparation | AnnData object, metadata, initial structure | Dataset is well-formed with disease + severity labels |
+| 2 | Quality control (QC) | Violin plots for genes/counts/mito | QC metrics show strong variability and clear outliers |
+| 3 | Filtering + normalization | Filtered cells, normalized expression | Removes noisy cells and improves downstream stability |
+| 4 | PCA + dimensionality reduction | Variance ratio + PCA projections | Strong structure exists but not fully separated by severity |
+| 5 | Neighborhood graph + Leiden tuning | UMAP at multiple resolutions | Resolution affects granularity; stable biological clusters emerge |
+| 6 | Final clustering + composition | Final UMAP + cluster fractions | Clusters contain distinct immune populations; disease enrichment differs |
+| 7 | Feature engineering for ML | Aggregated gene features per sample | Transforms scRNA-seq into supervised ML-ready format |
+| 8 | Neural models (MLP + Advanced NN) | Training curves + ROC | Deep learning performs extremely well (near-perfect AUC) |
+| 9 | TabNet training | Training history + ROC | TabNet also achieves strong performance but higher variance |
+| 10 | Model comparison + stratified analysis | Boxplots + heatmaps | Linear models perform almost as well; Monocytes & T/NK dominate signal |
+
+---
+
+## Key Biological Findings
+
+Across clustering and marker-based interpretation, the immune landscape reveals meaningful differences between **Healthy** and **COVID-19 Disease**:
+
+### 1) Strong immune cell-type structure
+Clustering identifies multiple distinct immune compartments, including:
+
+- T cells (CD4/CD8)
+- NK cells
+- Monocytes (classical + inflammatory)
+- Dendritic cells
+- B cells / Plasma-like signatures
+- Platelets
+- Cycling cells
+
+These populations form well-separated regions in UMAP space, confirming strong biological signal.
+
+---
+
+### 2) Disease signal is strongest in Monocytes and cytotoxic compartments
+Model stratification shows the strongest predictive performance for:
+
+- **Monocytes**
+- **T cells**
+- **NK cells**
+- **Dendritic cells**
+
+This suggests that COVID-19 alters immune gene expression most strongly in:
+
+- innate myeloid response
+- cytotoxic immune response
+
+---
+
+### 3) Severity is more heterogeneous than disease vs healthy
+While disease vs healthy is highly separable, severity classes overlap more:
+
+- Critical and severe states share partially overlapping immune patterns
+- Severe samples show higher variability
+
+This aligns with the idea that severe disease can arise from multiple immune trajectories.
+
+---
+
+### 4) Predictive features are highly informative
+All models achieved very high AUC, indicating that the selected gene expression signatures contain strong discriminative information for infection status.
+
+---
+
+## Limitations
+
+Although the results are strong, several limitations should be considered:
+
+### 1) Potential donor / batch effects
+If the dataset contains donor-specific effects, models may learn:
+
+- patient identity signatures
+- technical batch patterns
+
+rather than true disease biology.
+
+---
+
+### 2) Aggregation for ML loses single-cell resolution
+Phase 7 required converting scRNA-seq into tabular ML features.  
+This aggregation can hide:
+
+- rare cell states
+- within-cluster heterogeneity
+- subtle severity progression
+
+---
+
+### 3) Possible class imbalance
+Some severity groups may contain fewer samples, which can lead to:
+
+- inflated AUC in dominant classes
+- less reliable performance in minority groups
+
+---
+
+### 4) Risk of overfitting due to strong signal
+Near-perfect AUC suggests strong separation, but also raises the possibility that:
+
+- the dataset may be “too easy”
+- leakage could exist (e.g., sample-level bias)
+
+---
+
+## Future Work
+
+Several improvements could strengthen this study and extend its biological impact:
+
+### 1) Perform batch correction
+Apply methods such as:
+
+- Harmony
+- Scanorama
+- scVI
+
+to reduce donor/batch effects before clustering and ML.
+
+---
+
+### 2) Differential expression analysis per cluster
+Perform DE testing between:
+
+- Disease vs Healthy within each cluster
+- Severity comparisons within key immune types
+
+This will identify mechanistic pathways and marker genes.
+
+---
+
+### 3) Trajectory inference for severity progression
+Use tools such as:
+
+- PAGA
+- Slingshot
+- Monocle
+
+to model immune progression across severity.
+
+---
+
+### 4) Interpretability and biomarker extraction
+Extract interpretable gene signatures from:
+
+- Logistic Regression coefficients
+- TabNet feature masks
+- SHAP values for NN models
+
+to identify robust biomarkers.
+
+---
+
+### 5) External validation
+Test the models on an independent scRNA-seq COVID dataset to confirm generalization.
+
+---
+
+# Final Conclusion
+
+This project successfully demonstrates that:
+
+- scRNA-seq immune profiles contain strong disease signatures.
+- clustering reveals biologically meaningful immune populations.
+- supervised ML models can classify disease state with extremely high accuracy.
+- Monocytes and cytotoxic immune cells carry the strongest predictive signal.
+- severity prediction is harder due to biological heterogeneity.
+
+---
+
