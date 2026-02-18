@@ -46,7 +46,7 @@ Mitochondrial reads are commonly used as a quality indicator because dying or st
 
 ## 📌 Figure 1 — Relationship between n_counts and n_genes (colored by mito%)
 
-![QC Scatter](figures/output-2.png)
+![QC Scatter](Figures/output-2.png)
 
 ### Interpretation
 
@@ -111,7 +111,7 @@ The goal of PCA is to reduce the dataset from thousands of genes into a smaller 
 
 ## 📌 Figure 2 — PCA Variance Ratio (log-scale)
 
-![Variance Ratio Log](figures/output-3.png)
+![Variance Ratio Log](Figures/output-3.png)
 
 ### Interpretation
 
@@ -127,7 +127,7 @@ This suggests most meaningful structure is captured early.
 
 ## 📌 Figure 3 — PCA Variance Ratio (linear-scale)
 
-![Variance Ratio Linear](figures/output-4.png)
+![Variance Ratio Linear](Figures/output-4.png)
 
 ### Interpretation
 
@@ -148,7 +148,7 @@ After PCA, we visualized the data in 2D using PC1 and PC2 to understand global s
 
 ## 📌 Figure 4 — PCA colored by clinical severity
 
-![PCA Severity](figures/output-5.png)
+![PCA Severity](Figures/output-5.png)
 
 ### Interpretation
 
@@ -164,7 +164,7 @@ This suggests that severity effects exist, but are subtle and mixed with cell-ty
 
 ## 📌 Figure 5 — PCA colored by GSM sample ID
 
-![PCA GSM](figures/output-6.png)
+![PCA GSM](Figures/output-6.png)
 
 ### Interpretation
 
@@ -179,7 +179,7 @@ This is important because it means later machine learning models may accidentall
 
 ## 📌 Figure 6 — PCA colored by binary condition (Healthy vs Disease)
 
-![PCA Binary](figures/output-7.png)
+![PCA Binary](Figures/output-7.png)
 
 ### Interpretation
 
