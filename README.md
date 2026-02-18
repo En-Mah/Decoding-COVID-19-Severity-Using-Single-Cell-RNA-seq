@@ -1,4 +1,4 @@
-# 🧬 Single-Cell RNA-seq Analysis of COVID-19 PBMCs (Phase 1–4)
+# Single-Cell RNA-seq Analysis of COVID-19 PBMCs 
 
 This repository contains the first part of an end-to-end single-cell RNA sequencing (scRNA-seq) pipeline applied to PBMC samples from COVID-19 patients.
 
@@ -8,8 +8,6 @@ The dataset includes four clinical groups:
 - Mild
 - Severe
 - Critical
-
-This README covers **Phase 1 to Phase 4 only**, up to the point **before clustering**.
 
 ---
 
@@ -25,12 +23,12 @@ This README covers **Phase 1 to Phase 4 only**, up to the point **before cluster
 - GSM8888965 → Severe
 - GSM8888966 → Critical
 
-⚠️ Important note:  
+Important note:  
 Each severity corresponds to only **one pooled sample**, which limits biological replication and requires careful interpretation in downstream steps.
 
 ---
 
-# 🔬 Phase 1 — Quality Control (QC) and Filtering
+# Phase 1 — Quality Control (QC) and Filtering
 
 The first step was to assess and remove low-quality cells.
 
@@ -44,7 +42,7 @@ Mitochondrial reads are commonly used as a quality indicator because dying or st
 
 ---
 
-## 📌 Figure 1 — Relationship between n_counts and n_genes (colored by mito%)
+## Figure 1 — Relationship between n_counts and n_genes (colored by mito%)
 
 ![QC Scatter](Figures/output-2.png)
 
@@ -78,7 +76,7 @@ This filtering step is important because low-quality cells can distort downstrea
 
 ---
 
-# 🔬 Phase 2 — Normalization and Feature Selection
+# Phase 2 — Normalization and Feature Selection
 
 After QC filtering, normalization was applied to remove technical effects such as sequencing depth.
 
@@ -101,7 +99,7 @@ This is an important detail because it ensures the selected HVGs represent biolo
 
 ---
 
-# 🔬 Phase 3 — PCA (Dimensionality Reduction)
+# Phase 3 — PCA (Dimensionality Reduction)
 
 Principal Component Analysis (PCA) was applied using the top 3,000 HVGs.
 
@@ -109,7 +107,7 @@ The goal of PCA is to reduce the dataset from thousands of genes into a smaller 
 
 ---
 
-## 📌 Figure 2 — PCA Variance Ratio (log-scale)
+## Figure 2 — PCA Variance Ratio (log-scale)
 
 ![Variance Ratio Log](Figures/output-3.png)
 
@@ -125,7 +123,7 @@ This suggests most meaningful structure is captured early.
 
 ---
 
-## 📌 Figure 3 — PCA Variance Ratio (linear-scale)
+## Figure 3 — PCA Variance Ratio (linear-scale)
 
 ![Variance Ratio Linear](Figures/output-4.png)
 
@@ -140,13 +138,13 @@ Based on both plots, **20 PCs** were selected for downstream analysis.
 
 ---
 
-# 🔬 Phase 4 — PCA Visualization and Global Data Structure
+# Phase 4 — PCA Visualization and Global Data Structure
 
 After PCA, we visualized the data in 2D using PC1 and PC2 to understand global structure and how severity groups relate to each other.
 
 ---
 
-## 📌 Figure 4 — PCA colored by clinical severity
+## Figure 4 — PCA colored by clinical severity
 
 ![PCA Severity](Figures/output-5.png)
 
@@ -162,7 +160,7 @@ This suggests that severity effects exist, but are subtle and mixed with cell-ty
 
 ---
 
-## 📌 Figure 5 — PCA colored by GSM sample ID
+## Figure 5 — PCA colored by GSM sample ID
 
 ![PCA GSM](Figures/output-6.png)
 
@@ -177,7 +175,7 @@ This is important because it means later machine learning models may accidentall
 
 ---
 
-## 📌 Figure 6 — PCA colored by binary condition (Healthy vs Disease)
+## Figure 6 — PCA colored by binary condition (Healthy vs Disease)
 
 ![PCA Binary](Figures/output-7.png)
 
@@ -188,8 +186,6 @@ This is important because it means later machine learning models may accidentall
 - More detailed downstream analysis (clustering, cell-type annotation, supervised learning) is required to detect severity-related transcriptional patterns
 
 ---
-
-# ✅ Summary (Phase 1–4)
 
 By the end of Phase 4:
 
