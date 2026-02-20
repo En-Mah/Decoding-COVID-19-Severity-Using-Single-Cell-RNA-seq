@@ -684,7 +684,7 @@ This sets the foundation for the next phases, where multiple models are trained,
 
 ---
 
-# 🤖 Phase 8 — Neural Network Models (MLP + Advanced NN)
+# Phase 8 — Neural Network Models (MLP + Advanced NN)
 
 After preparing the ML-ready dataset in Phase 7, we trained neural network models to predict **Disease vs Healthy** using the selected gene features.  
 This phase focuses on training behavior, convergence, and evaluation using ROC curves.
